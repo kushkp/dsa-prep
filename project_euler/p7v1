@@ -1,0 +1,37 @@
+import time
+
+def findNthPrime(n):
+  primes = []
+  potentialPrime = 2
+
+  while len(primes) < n:
+      if isPrime(potentialPrime):
+        primes.append(potentialPrime)
+
+      potentialPrime += 1
+
+  return primes[-1]
+
+
+def isPrime(number):
+  for factor in range(2, number/2 + 1):
+    if number % factor == 0 or factor * factor == number:
+      return False
+
+  return True
+
+
+# test cases
+print isPrime(2) == True
+print isPrime(3) == True
+print isPrime(4) == False
+print isPrime(6) == False
+print isPrime(7) == True
+print isPrime(9) == False
+
+# print findNthPrime(6) == 13
+
+start = time.time()
+print findNthPrime(10001)
+end = time.time()
+print end - start
