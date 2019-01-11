@@ -1,0 +1,24 @@
+def largestPalindromeProduct():
+  largestPalindrome = 111*111
+
+  for i in range (999, 111, -1):
+    for j in range (i, 111, -1):
+      product = i * j
+      if (product > largestPalindrome) and isPalindrome(product):
+        largestPalindrome = product
+
+  return largestPalindrome
+
+def isPalindrome(number):
+  numArray = str(number)
+  reverseNumArray = ''.join(reversed(numArray))
+  return numArray == reverseNumArray
+
+
+# test cases:
+print isPalindrome(9009)
+print isPalindrome(121)
+
+print largestPalindromeProduct()
+# 9009
+# made from 91 x 99

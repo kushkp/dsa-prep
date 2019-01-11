@@ -1,0 +1,25 @@
+import time
+
+def smallestMultiple(min, max):
+  counter = max * (max - 1)
+
+  while counter < 300000000:
+    # iterate from 1-max, if all are evenly divisible, return this number
+    allEvenlyDivisible = True
+    for i in range(max, max/2, -1):
+      if counter % i != 0:
+        allEvenlyDivisible = False
+        break
+
+    if allEvenlyDivisible:
+      return counter
+    else:
+      counter += 10
+
+
+# test cases
+start = time.time()
+# print smallestMultiple(1,10) # 2520
+print smallestMultiple(1,20)
+end = time.time()
+print end-start

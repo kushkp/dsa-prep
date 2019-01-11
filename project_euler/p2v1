@@ -1,0 +1,42 @@
+# iteratively:
+def sumOfEvenFib(max):
+  fibs = [1,2]
+  nextFib = fibs[-2] + fibs[-1]
+  sum = 2
+
+  # generate list of fibonacci numbers
+  while nextFib < max:
+    fibs.append(nextFib)
+    if nextFib % 2 == 0:
+      sum += nextFib
+
+    nextFib = fibs[-2] + fibs[-1]
+
+  return sum
+
+
+
+# recursively:
+def sumOfEvenFibRecursive(max):
+  fibs = [1,2]
+  sum = 2
+
+  return helper(fibs, max, sum)
+
+def helper(fibs, max, sum):
+  nextFib = fibs[-2] + fibs[-1]
+
+  if nextFib >= max:
+    return sum
+
+  fibs.append(nextFib)
+  if nextFib % 2 == 0:
+    sum += nextFib
+  return helper(fibs, max, sum)
+
+# Test Cases
+print sumOfEvenFib(100)
+print sumOfEvenFibRecursive(100)
+
+print sumOfEvenFib(4000000)
+print sumOfEvenFibRecursive(4000000)

@@ -1,0 +1,13 @@
+def findSumOfMultiples(divisors, max):
+  multiples = []
+
+  for number in range(1, max):
+    for divisor in divisors:
+      if number % divisor == 0:
+        multiples.append(number)
+        break
+
+  return sum(multiples)
+
+# test cases
+print findSumOfMultiples([3,5], 1000)

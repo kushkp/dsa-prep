@@ -1,0 +1,59 @@
+import math
+
+# works but takes too long
+def largestPrimeFactor(number):
+  max = number / 2
+  factors = []
+
+  for i in range(2, max):
+    if number % i == 0:
+      factors.append(i)
+
+  print factors
+
+  for factor in reversed(factors):
+    if isPrime(factor):
+      return factor
+
+  return
+
+
+def isPrime(number):
+  for i in range(number/2, int(math.sqrt(number)), -1):
+    print i
+    if number % i == 0:
+      return False
+  return True
+
+
+# without creating list - using number theory
+# from internet
+def findLargestPrimeFactor(n):
+  maxPrime = n
+
+  while n % 2 == 0:
+    n /= 2
+
+  # n should be odd, and have all 2 factors removed
+  for i in range(3, int(math.sqrt(n)), 2):
+    while n % i == 0:
+      maxPrime = n
+      n /= i
+
+  return maxPrime
+
+
+
+# test cases:
+
+# print largestPrimeFactor(13195)
+# 29
+
+# print largestPrimeFactor(600851475143)
+# test cases:
+
+print findLargestPrimeFactor(13195)
+# 29
+
+print findLargestPrimeFactor(600851475143)
+#

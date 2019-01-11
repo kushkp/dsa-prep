@@ -1,0 +1,18 @@
+def sumSquareDifference(n):
+  rangeSum = sum(range(1,n+1))
+  squareOfSum = rangeSum * rangeSum
+  print 'rangeSum: ' + str(rangeSum)
+  print 'squareOfSum: ' + str(squareOfSum)
+
+  sumOfSquares = 0
+  for i in range(1, n+1):
+    sumOfSquares += i * i
+  print 'sumOfSquares: ' + str(sumOfSquares)
+
+  return  squareOfSum - sumOfSquares
+
+
+# test cases
+
+# print sumSquareDifference(10) #2640
+print sumSquareDifference(100) #2640
