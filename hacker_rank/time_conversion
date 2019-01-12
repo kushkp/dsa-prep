@@ -1,0 +1,21 @@
+def timeConversion(s):
+  meridian = s[-2:].lower()
+  time = s[:-2]
+  [hour, minutes, seconds] = time.split(':')
+
+  if meridian == 'am' and hour == '12':
+    hour = '00'
+  elif meridian == 'pm' and hour == '12':
+    hour = '12'
+  elif meridian == 'pm':
+    hour = str(12 + int(hour))
+
+  militaryhourtime = hour + ':' + minutes + ':' + seconds
+  return militaryhourtime
+
+
+# test cases
+print timeConversion('07:05:45PM') == '19:05:45'
+print timeConversion('07:05:45AM') == '07:05:45'
+print timeConversion('12:05:45AM') == '00:05:45'
+print timeConversion('12:05:45PM') == '12:05:45'

@@ -1,0 +1,16 @@
+def gradingStudents(grades):
+  final_grades = []
+  for grade in grades:
+    final_grade = grade
+
+    if grade > 37 and grade % 5 > 2:
+      multiplier = grade // 5
+      final_grade = (multiplier + 1) * 5
+
+    final_grades.append(final_grade)
+
+  return final_grades
+
+# test cases
+print gradingStudents([75,67,40,33]) == [75,67,40,33]
+print gradingStudents([32,34,35,37,38,40]) == [32,34,35,37,40,40]

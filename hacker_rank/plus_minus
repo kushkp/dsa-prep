@@ -1,0 +1,24 @@
+def plus_minus(arr):
+  length = len(arr)
+  positives = 0
+  negatives = 0
+  zeros = 0
+
+  for value in arr:
+    if value > 0:
+      positives += 1
+    elif value < 0:
+      negatives += 1
+    else:
+      zeros +=1
+
+  print(str.format('{0:.6f}', positives/length))
+  print(str.format('{0:.6f}', negatives/length))
+  print(str.format('{0:.6f}', zeros/length))
+
+# test cases
+
+plus_minus([-4, 3, -9, 0, 4, 1])
+# 0.500000
+# 0.333333
+# 0.166667

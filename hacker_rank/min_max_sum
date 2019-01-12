@@ -1,0 +1,12 @@
+def miniMaxSum(arr):
+  arr.sort()
+
+  min = sum(arr[:4])
+  max = sum(arr[-4:])
+
+  print(str(min) + ' ' + str(max))
+
+# test cases
+
+miniMaxSum([1, 2, 3, 4, 5])
+# 10 14
