@@ -1,0 +1,32 @@
+def getTotalX(a, b):
+  multiples_of_a = []
+
+  min_range = a[-1]
+  max_range = b[0]
+
+  for multiple in range(min_range, max_range + 1):
+    addMultiple = True
+    for factor in a:
+      if multiple % factor != 0:
+        addMultiple = False
+
+    if addMultiple:
+      multiples_of_a.append(multiple)
+
+  print(multiples_of_a)
+
+
+  between_sets = []
+  for factor in multiples_of_a:
+    addFactor = True
+    for multiple in b:
+      if multiple % factor != 0:
+        addFactor = False
+
+    if addFactor:
+      between_sets.append(factor)
+
+  return len(between_sets)
+
+# test cases
+print(getTotalX([2, 4], [16, 32, 96]) == 3)

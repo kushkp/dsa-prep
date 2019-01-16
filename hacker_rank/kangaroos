@@ -1,0 +1,19 @@
+def kangaroo(x1, v1, x2, v2):
+  if v1 == v2 or (x1 <= x2 and v1 < v2):
+    return 'NO'
+
+  # v1y + x1 = v2y + x2
+  # my = b
+  # y = b / m
+
+  b = x2 - x1
+  m = v1 - v2
+
+  if (b % m) == 0:
+    return 'YES'
+  else:
+    return 'NO'
+
+
+# test cases
+print(kangaroo(0, 2, 5, 3) == 'NO')
