@@ -1,0 +1,12 @@
+def camelcase(s):
+  capitals = 0
+  for char in s:
+    if char.isupper():
+      capitals +=1
+
+  return capitals + 1
+
+
+# test cases
+print(camelcase('saveChangesInTheEditor') == 5)
+print(camelcase('save') == 1)
