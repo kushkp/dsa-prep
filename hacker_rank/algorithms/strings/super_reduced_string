@@ -1,0 +1,37 @@
+def superReducedString(s):
+  finalString = s
+
+  while True:
+    i = 0
+    noMutations = True
+
+    # iterate through each letter of finalString
+    # starting at beginning until no mutations detected
+    while i < len(finalString) - 1:
+      # if adjacents match, remove 2nd letter
+      # do not increment counter
+      if finalString[i] == finalString[i + 1]:
+        # remove 2 letters (use i - 1 if i != 0)
+        if i == 0:
+          finalString = finalString[(i+2):]
+        else:
+          finalString = finalString[:i] + finalString[(i+2):]
+        noMutations = False
+      #if adjacents do not match, increment counter
+      else:
+        i += 1
+
+    # if no adjacents detected, end loop
+    if noMutations:
+      break
+
+  if finalString == '':
+    finalString = 'Empty String'
+
+  return finalString
+
+
+# test cases
+print(superReducedString('aa') == 'Empty String')
+print(superReducedString('baab') == 'Empty String')
+print(superReducedString('aaabccddd') == 'abd')
