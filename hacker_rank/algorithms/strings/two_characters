@@ -1,0 +1,56 @@
+def alternate(s):
+  unique_letters = []
+
+  for char in s:
+    if char not in unique_letters:
+      unique_letters.append(char)
+
+  print(unique_letters)
+
+  if len(unique_letters) == 1 and len(s) != 1:
+    return 0
+
+  # get all 2 letter combinations
+  letter_combinations = []
+  for i in range(0, len(unique_letters) - 1):
+    for j in range(i + 1, len(unique_letters)):
+      letter_combinations.append([unique_letters[i], unique_letters[j]])
+
+  print(letter_combinations)
+
+  # each 2 letter combo, strip the other letters
+  longest_word = ''
+  for combination in letter_combinations:
+    word = ''
+    for letter in s:
+      if letter in combination:
+        word = word + letter
+
+    # print(combination, word)
+
+    #check if letters are alternating
+    nextLetter = word[0]
+    for letter in word:
+      # print(letter, nextLetter)
+
+      # check letter
+      if letter != nextLetter:
+        break
+
+      # change letter
+      if nextLetter == word[0]:
+        nextLetter = word[1]
+      else:
+        nextLetter = word[0]
+    else:
+      if len(word) > len(longest_word):
+        longest_word = word
+
+  print(longest_word)
+  return len(longest_word)
+
+
+# test cases
+print(alternate('beabeefeab') == 5)
+print(alternate('abaacdabd') == 4)
+print(alternate('aaa') == 0)
