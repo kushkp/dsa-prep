@@ -1,0 +1,38 @@
+def minimumBribes(q):
+  end_num = len(q)
+  original_q = list(range(1, end_num + 1))
+  total_swaps = 0
+  queue_sorted = False
+
+  for num in range(end_num, 1, -1):
+    pos = q.index(num)
+
+    if num - (pos+1) > 2:
+      break
+
+    swaps_needed = num - (pos+1)
+    total_swaps += swaps_needed
+
+    if swaps_needed == 1:
+      q[pos] = q[pos+1]
+      q[pos+1] = num
+    elif swaps_needed == 2:
+      q[pos] = q[pos+1]
+      q[pos+1] = q[pos+2]
+      q[pos+2] = num
+
+    if q == original_q:
+      queue_sorted = True
+      break
+
+  if queue_sorted:
+    return total_swaps
+  else:
+    return 'Too chaotic'
+
+# test cases
+print(minimumBribes([3, 4, 5, 2, 1]) == 7)
+print(minimumBribes([2, 1, 5, 3, 4]) == 3)
+print(minimumBribes([2, 5, 1, 3, 4]) == 'Too chaotic')
+
+# list(map(lambda x: x -1, q))
