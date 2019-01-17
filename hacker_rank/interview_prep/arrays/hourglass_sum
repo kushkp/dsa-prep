@@ -1,0 +1,23 @@
+def hourglassSum(arr):
+  greatest_sum = None
+
+  for row in range(4):
+    for col in range(4):
+      hourglass_sum = sum(arr[row][col:(col+3)]) \
+        + sum(arr[row+2][col:(col+3)]) \
+        + arr[row+1][col+1]
+
+      if greatest_sum == None or hourglass_sum > greatest_sum:
+        greatest_sum = hourglass_sum
+
+  return greatest_sum
+
+# test cases
+arr = [[1, 1, 1, 0, 0, 0],
+       [0, 1, 0, 0, 0, 0],
+       [1, 1, 1, 0, 0, 0],
+       [0, 0, 2, 4, 4, 0],
+       [0, 0, 0, 2, 0, 0],
+       [0, 0, 1, 2, 4, 0]]
+
+print(hourglassSum(arr) == 19)
