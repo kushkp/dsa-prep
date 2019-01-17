@@ -1,0 +1,18 @@
+def sockMerchant(n, ar):
+  sock_count = {}
+
+  for sock in ar:
+    if sock in sock_count:
+      sock_count[sock] += 1
+    else:
+      sock_count[sock] = 1
+
+  pairs = 0
+  for sock, count in sock_count.items():
+    pairs += count // 2
+
+  return pairs
+
+
+# test cases
+print(sockMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]) == 3)
