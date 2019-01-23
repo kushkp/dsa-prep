@@ -1,0 +1,29 @@
+def alternatingCharacters(s):
+  deletions = 0
+  pos = 0
+  current_letter = s[0]
+
+  while len(s) > 0 and pos < len(s):
+    if s[pos] == current_letter:
+      # swap current letter
+      if current_letter == 'A':
+        current_letter = 'B'
+      else:
+        current_letter = 'A'
+    else:
+      deletions += 1
+
+    pos += 1
+
+  return deletions
+
+
+
+
+
+# test cases
+print(alternatingCharacters('AAAA') == 3)
+print(alternatingCharacters('BBBBB') == 4)
+print(alternatingCharacters('ABABABAB') == 0)
+print(alternatingCharacters('BABABA') == 0)
+print(alternatingCharacters('AAABBB') == 4)
