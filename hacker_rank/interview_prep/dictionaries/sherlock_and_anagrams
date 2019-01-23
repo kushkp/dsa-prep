@@ -1,0 +1,29 @@
+def sherlockAndAnagrams(s):
+  substrings = {}
+  anagram_count = 0
+
+  # generate all anagrams using nested for loop
+  for i in range(len(s)):
+    for j in range(i, len(s)):
+      # split and sort substring
+      substring = s[i:(j+1)]
+      sorted_ss = sorted(list(substring))
+      sorted_substring = ''.join(sorted_ss)
+
+      # insert anagrams into dict with counter
+      if sorted_substring in substrings:
+        # Adding existing count because we want to add the number of pairs
+        # this substring makes with the existing substrings found
+        anagram_count += substrings[sorted_substring]
+        substrings[sorted_substring] += 1
+      else:
+        substrings[sorted_substring] = 1
+
+  return anagram_count
+
+
+# test cases
+print(sherlockAndAnagrams('abba') == 4)
+print(sherlockAndAnagrams('abcd') == 0)
+print(sherlockAndAnagrams('ifailuhkqq') == 3)
+print(sherlockAndAnagrams('kkkk') == 10)
