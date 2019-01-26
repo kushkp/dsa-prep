@@ -1,0 +1,21 @@
+def twoStrings(s1, s2):
+  hashmap = {}
+
+  for i in range(len(s1)):
+    substring = s1[i]
+    if substring not in hashmap:
+      hashmap[substring] = True
+
+  for i in range(len(s2)):
+    substring = s2[i]
+    if substring in hashmap:
+      return 'YES'
+
+  return 'NO'
+
+
+# test cases
+print(twoStrings('hello', 'world') == 'YES')
+print(twoStrings('hi', 'world') == 'NO')
+print(twoStrings('i', 'i') == 'YES')
+print(twoStrings('why', 'shy') == 'YES')
