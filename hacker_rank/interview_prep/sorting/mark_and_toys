@@ -1,0 +1,17 @@
+def maximumToys(prices, k):
+  toys_purchasable = 0
+  sorted_prices = sorted(prices)
+  money_left = k
+
+  for price in sorted_prices:
+    if money_left > price:
+      money_left -= price
+      toys_purchasable += 1
+    else:
+      break
+
+  return toys_purchasable
+
+
+# test cases
+print(maximumToys([1, 12, 5, 111, 200, 1000, 10], 50) == 4)
