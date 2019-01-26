@@ -1,0 +1,42 @@
+from operator import itemgetter
+
+def luckBalance(k, contests):
+  losses_remaining = k
+  imp_contests = []
+  luck_gained = 0
+
+  # separate important contests
+  # and add positive luck from unimportant contests
+  for contest in contests:
+    if contest[1] == 1:
+      imp_contests.append(contest)
+    else:
+      if contest[0] > 0:
+        luck_gained += contest[0]
+
+  # sort important contests by greatest luck
+  imp_contests = sorted(imp_contests, key=itemgetter(0), reverse=True)
+
+  # add luck for k losses, subtract luck for the rest
+  for contest in imp_contests:
+    if losses_remaining > 0:
+      luck_gained += contest[0]
+      losses_remaining -= 1
+    else:
+      luck_gained -= contest[0]
+
+  return luck_gained
+
+
+# test cases
+print(luckBalance(2, [[5,1],[1,1],[4,0]]) == 10)
+print(luckBalance(2, [[1,1],[5,1],[4,0]]) == 10)
+print(luckBalance(2, [[4,0],[5,1],[1,1]]) == 10)
+print(luckBalance(2, [[4,0],[1,1],[5,1]]) == 10)
+
+print(luckBalance(1, [[5,1],[1,1],[4,0]]) == 8)
+print(luckBalance(1, [[1,1],[5,1],[4,0]]) == 8)
+print(luckBalance(1, [[4,0],[5,1],[1,1]]) == 8)
+print(luckBalance(1, [[4,0],[1,1],[5,1]]) == 8)
+
+print(luckBalance(3, [[5,1],[2,1],[1,1],[8,1],[10,0],[5,0]]) == 29)
