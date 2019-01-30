@@ -1,0 +1,34 @@
+def mergesort(arr):
+  if len(arr) <= 1:
+    return arr
+
+  midpoint = len(arr) // 2
+  left = arr[:midpoint]
+  right = arr[midpoint:]
+
+  sorted_left = mergesort(left)
+  sorted_right = mergesort(right)
+
+  sorted_arr = []
+  while len(sorted_left) > 0 and len(sorted_right) > 0:
+    if sorted_left[0] <= sorted_right[0]:
+      sorted_arr.append(sorted_left[0])
+      sorted_left = sorted_left[1:]
+    else:
+      sorted_arr.append(sorted_right[0])
+      sorted_right = sorted_right[1:]
+
+  return sorted_arr + sorted_left + sorted_right
+
+
+
+
+
+# test cases
+print(mergesort([]) == [])
+print(mergesort([1]) == [1])
+print(mergesort([1,2,3]) == [1,2,3])
+print(mergesort([3,2,1]) == [1,2,3])
+print(mergesort([3,1,2]) == [1,2,3])
+print(mergesort([4,4,4]) == [4,4,4])
+print(mergesort([4,12,3,9,8,2,7])==[2,3,4,7,8,9,12])
