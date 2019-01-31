@@ -1,0 +1,26 @@
+# Complete the insertNodeAtPosition function below.
+
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
+def insertNodeAtPosition(head, data, position):
+    newNode = SinglyLinkedListNode(data)
+    newNode.data = data
+
+    beginningNode = None
+    current_pos = 0
+    current_node = head
+
+    while current_pos < position - 1:
+        current_node = current_node.next
+        current_pos += 1
+
+    newNode.next = current_node.next
+    current_node.next = newNode
+
+    return head
