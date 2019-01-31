@@ -1,0 +1,36 @@
+def whatFlavors(cost, money):
+  # create hashmap of flavor costs
+  price_map = {}
+  for pos in range(len(cost)):
+    price = cost[pos]
+    if price in price_map:
+      price_map[price].append(pos)
+    else:
+      price_map[price] = [pos]
+
+  # iterate from money to 0
+  for money_left in range(money + 1):
+
+    # iterate through each element
+    for first_cost in cost:
+
+      # remove first occurence
+      first_loc = price_map[first_cost].pop(0)
+
+      # check if matching number exists to get to diff
+      second_cost = money - money_left - first_cost
+      if second_cost in price_map and len(price_map[second_cost]) > 0:
+        second_loc = price_map[second_cost][0]
+        print([first_loc + 1, second_loc + 1])
+        return [first_loc + 1, second_loc + 1]
+      else:
+        price_map[first_cost].insert(0, first_loc)
+
+  return None
+
+
+# test cases
+
+print(whatFlavors([2,1,3,5,6], 5) == [1,3])
+print(whatFlavors([1,4,5,3,2], 4) == [1,4])
+print(whatFlavors([2,2,4,3], 4) == [1,2])
