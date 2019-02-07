@@ -1,0 +1,42 @@
+def isBalanced(s):
+  stack = []
+
+  open = ['(', '[', '{']
+  closed = [')', ']', '}']
+
+  for char in s:
+    # print(char, stack)
+    if char in open:
+      stack.append(char)
+    elif char in closed:
+      if len(stack) == 0:
+        return 'NO'
+      elif findMatchingOpen(char) == stack[-1]:
+        stack = stack[:-1]
+      else:
+        return 'NO'
+
+  if len(stack) == 0:
+    return 'YES'
+  else:
+    return 'NO'
+
+def findMatchingOpen(char):
+  if char == '}':
+    return '{'
+  if char == ']':
+    return '['
+  if char == ')':
+    return '('
+
+
+
+# test cases
+# print(isBalanced('{[()]}') == 'YES')
+# print(isBalanced('{[(])}') == 'NO')
+# print(isBalanced('{{[[(())]]}}') == 'YES')
+# print(isBalanced('{}') == 'YES')
+# print(isBalanced('{]]{()}{])') == 'NO')
+# print(isBalanced('(){}') == 'YES')
+# print(isBalanced('{}{()}{{}}') == 'YES')
+print(isBalanced('}([[{)[]))]{){}[') == 'NO')
