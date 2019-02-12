@@ -1,0 +1,32 @@
+# E - Easy Unique Email Addresses
+
+class Solution:
+    def numUniqueEmails(self, emails: 'List[str]') -> 'int':
+        uniques = set()
+
+        for email in emails:
+            (local, domain) = email.split("@")
+
+            if "+" in local:
+                index = local.index("+")
+                local = local[:index]
+
+            local = local.replace('.', '')
+            uniques.add(local + '@' + domain)
+
+        return len(uniques)
+
+
+# test cases
+tests = [
+([
+  "test.email+alex@leetcode.com",
+  "test.e.mail+bob.cathy@leetcode.com",
+  "testemail+david@lee.tcode.com"
+], 2)]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.numUniqueEmails(test[0]) == test[1])
