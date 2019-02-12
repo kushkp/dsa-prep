@@ -1,0 +1,28 @@
+# E - To Lower Case
+
+class Solution:
+    def toLowerCase(self, string: 'str') -> 'str':
+        newstr = ""
+
+        for char in string:
+            val = ord(char)
+            if (val >= 65 and val <=90):
+                newstr += chr(val + 32)
+            else:
+                newstr += char
+
+        return newstr
+
+# test cases
+tests = [
+("Hello", "hello"),
+("hello", "hello"),
+("HELLO", "hello"),
+("helLO", "hello"),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.toLowerCase(test[0]) == test[1])
