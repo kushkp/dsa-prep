@@ -1,0 +1,45 @@
+# M - Split Array into Consecutive Subsequences
+
+class Solution:
+    def isPossible(self, nums: 'List[int]') -> 'bool':
+        subseqs = []
+
+
+        while len(nums) > 0:
+            sequence = []
+            remaining = []
+
+            for num in nums:
+                if not sequence:
+                    sequence.append(num)
+                    continue
+
+                next_num = sequence[-1] + 1
+
+                if num == next_num:
+                    sequence.append(num)
+                else:
+                    remaining.append(num)
+
+            if len(sequence) >= 3:
+                subseqs.append(sequence)
+                nums = remaining
+            else:
+              return False
+
+        return True
+
+
+
+# test cases
+tests = [
+([1,2,3,3,4,5], True),
+([1,2,3,3,4,4,5,5], True),
+([1,2,3,4,4,5], False)
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.isPossible(test[0]) == test[1])
