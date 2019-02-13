@@ -1,0 +1,43 @@
+# Hard - Rectangle Area II
+
+class Solution:
+    def transformRectangle(self, rectangle: 'List[int]') -> 'List[Tuple[int]]':
+        (x1, y1, x2, y2) = rectangle
+        squares = []
+
+        for x in range(x1, x2):
+            for y in range (y1, y2):
+                square = (x,y,x+1,y+1)
+                squares.append(square)
+
+        return squares
+
+
+    def rectangleArea(self, rectangles: 'List[List[int]]') -> 'int':
+        unique_squares = set()
+
+        for rectangle in rectangles:
+            squares = self.transformRectangle(rectangle)
+
+            for square in squares:
+                unique_squares.add(square)
+
+        print(unique_squares)
+        return len(unique_squares) % (10^9 + 7)
+
+# test cases
+tests = [
+  ([[0,0,2,2]], 4),
+  ([[1,0,2,3]], 3),
+  ([[1,0,3,1]], 2),
+  ([[0,0,2,2],[1,0,2,3],[1,0,3,1]], 6),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.rectangleArea(test[0]) == test[1])
+
+
+# fails memory limit
