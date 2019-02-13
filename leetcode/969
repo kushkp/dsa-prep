@@ -1,0 +1,53 @@
+# M - Pancake Sorting
+
+class Solution:
+    def pancakeSort(self, A: 'List[int]') -> 'List[int]':
+      sortedA = sorted(A)
+      if A == sortedA:
+        return []
+
+
+      flips = []
+      while A != sortedA:
+        # starting at largest num ... 1
+        for i in range(len(A), 0, -1):
+
+#          print(flips, A, i)
+
+          # find num in array
+          index = A.index(i)
+
+          # if not at correct pos
+          if index + 1 != i:
+
+            # flip subarray so num is at front
+            flips.append(index + 1)
+            A = A[:index+1][::-1] + A[index+1:]
+#            print(index+1, A)
+
+            # flip subarray so first number is where it should be (i)
+            flips.append(i)
+            A = A[:i][::-1] + A[i:]
+#            print(i, A)
+
+#      print(flips)
+      return flips
+
+
+# test cases
+tests = [
+  ([3,2,4,1], [3,4,2,3,2]),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.pancakeSort(test[0]) == test[1])
+
+# [3,2,4,1] 3
+# [4,2,3,1] 4
+# [1,3,2,4] 2
+# [3,1,2,4] 3
+# [2,1,3,4] 2
+# [1,2,3,4]
