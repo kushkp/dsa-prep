@@ -1,0 +1,42 @@
+# Hard - Rectangle Area II
+
+class Solution:
+    def rectangleArea(self, rectangles: 'List[List[int]]') -> 'int':
+        height_ranges = {}
+
+        for rectangle in rectangles:
+          (x1, y1, x2, y2) = rectangle
+          for x in range(x1, x2):
+            if x not in height_ranges:
+              height_ranges[x] = [y1,y2]
+            else:
+              (prev_min, prev_max) = height_ranges[x]
+              if y1 < prev_min:
+                height_ranges[x][0] = y1
+
+              if y2 > prev_max:
+                height_ranges[x][1] = y2
+
+        total_area = 0
+        for height_range in height_ranges.values():
+          total_area += height_range[1] - height_range[0]
+
+        return total_area % (10^9 + 7)
+
+# test cases
+tests = [
+  ([[0,0,2,2]], 4),
+  ([[1,0,2,3]], 3),
+  ([[1,0,3,1]], 2),
+  ([[0,0,2,2],[1,0,2,3],[1,0,3,1]], 6),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.rectangleArea(test[0]) == test[1])
+
+
+# fails memory limit again :(
+# solutions involved sorting. why??
