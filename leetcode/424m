@@ -1,0 +1,54 @@
+# Longest Repeating Character Replacement
+# https://leetcode.com/problems/longest-repeating-character-replacement/
+
+class Solution:
+    def characterReplacement(self, s: 'str', k: 'int') -> 'int':
+      starting_points = [0]
+      max_length = 1
+      end = len(s)
+
+      while starting_points:
+        start = starting_points.pop(0)
+        target_letter = s[start]
+        remaining_changes = k
+        length = 1
+
+        # if we reach a point in the string where
+        # the num of remaining chars is less than max_length
+        # it is impossible to find a longer substring
+        if end - start < max_length:
+          break
+
+        for i in range(start + 1, end):
+          letter = s[i]
+          if letter == target_letter:
+            length += 1
+            max_length = max(max_length, length)
+          else:
+            # add letter as next starting point
+            starting_points.append(i)
+
+            # change letter for this round
+            if remaining_changes > 0:
+              remaining_changes -= 1
+              length += 1
+              max_length = max(max_length, length)
+            else:
+              break
+
+      return max_length
+
+# test cases
+tests = [
+  ("ABAB", 2, 4),
+  ("AABABBA", 1, 4),
+  ("AABABBA", 2, 5),
+  ("AABABBA", 3, 7),
+  ("AABBACCCBBBBBA", 4, 11),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.characterReplacement(test[0], test[1]) == test[2])
