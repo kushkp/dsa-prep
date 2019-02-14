@@ -1,0 +1,51 @@
+class Solution:
+    def maxProfit(self, prices: 'List[int]') -> 'int':
+      max_profit = 0
+      buy_price = float('inf')
+
+      for price in prices:
+        buy_price = min(buy_price, price)
+        profit = price - buy_price
+        max_profit = max(max_profit, profit)
+
+      return max_profit
+
+    def maxProfitDays(self, prices: 'List[int]') -> 'List[int]':
+      max_profit = 0
+      buy_price = float('inf')
+      buy_day = 0
+      sell_day = 0
+
+      for i, price in enumerate(prices):
+        if price < buy_price:
+          buy_price = price
+          buy_day = i + 1
+
+        profit = price - buy_price
+
+        if profit > max_profit:
+          max_profit = profit
+          sell_day = i + 1
+
+
+      if sell_day != 0:
+        return [buy_day, sell_day]
+      else:
+        return []
+
+# test cases
+tests = [
+  ([7,1,5,3,6,4], 5),
+  ([7,6,4,3,1], 0),
+]
+tests2 = [
+  ([7,1,5,3,6,4], [2,5]),
+  ([7,6,4,3,1], []),
+]
+
+# main runner
+sol = Solution()
+for test in tests:
+   print(sol.maxProfit(test[0]) == test[1])
+for test in tests2:
+  print(sol.maxProfitDays(test[0]) == test[1])
