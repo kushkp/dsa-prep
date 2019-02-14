@@ -1,0 +1,35 @@
+# given a string of chars, return all permutations of the chars
+
+def genPermutations(str):
+  if len(str) == 1:
+    return set(str)
+
+  str_list = list(str)
+
+  first_char = str_list[0]
+  rest = str_list[1:]
+
+  # print(str_list, first_char, rest)
+  prev_permutations = genPermutations(rest)
+
+  permutations = set()
+  for prev in prev_permutations:
+    for i in range(len(prev) + 1):
+      # print(prev_permutations, prev, first_char)
+      new =  prev[:i] + first_char + prev[i:]
+      permutations.add(new)
+
+  # print(permutations)
+  return permutations
+
+#  "abc"
+#   a
+#   ba ab
+#   cba bca bac cab acb abc
+
+# test cases
+
+print(genPermutations('a') == {'a'});
+print(genPermutations('aa') == {'aa'});
+print(genPermutations('ab') == {'ab', 'ba'});
+print(genPermutations('abc') == {'bca', 'cba', 'abc', 'cab', 'acb', 'bac'});
