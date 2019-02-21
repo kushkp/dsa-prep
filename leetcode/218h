@@ -1,0 +1,88 @@
+# The Skyline Problem
+# https://leetcode.com/problems/the-skyline-problem/
+
+from collections import OrderedDict
+
+class Solution:
+    # O(Rmax) time and space
+    def getSkylineAttempt1(self, buildings: 'List[List[int]]') -> 'List[List[int]]':
+      if not buildings:
+        return []
+
+      maxR = max(b[1] for b in buildings)
+      heights = [0 for _ in range(maxR + 1)]
+
+      # generate heights map
+      for building in buildings:
+        # [L, R, H]
+        for pos in range(building[0], building[1]):
+          heights[pos] = max(heights[pos], building[2])
+
+      print(heights)
+
+      skyline = []
+      # generate output
+      prev_height = 0
+      for pos, height in enumerate(heights):
+        if height != prev_height:
+          skyline.append([pos, height])
+          prev_height = height
+          print(skyline)
+
+      return skyline
+
+    def getSkyline(self, buildings: 'List[List[int]]') -> 'List[List[int]]':
+      if not buildings: return []
+
+      poi = {}
+
+      for building in buildings:
+        # [L, R, H]
+        left = building[0]
+        right = building[1] - 1
+        height = building[2]
+
+        if (left not in poi) or (height > poi[left]):
+          poi[left] = height
+
+        if left == right:
+          continue
+
+        if right in poi:
+          if height > poi[right]:
+            poi[right] = height
+        else:
+          poi[right] = 0
+
+      # should have poi set now
+      poi = OrderedDict(sorted(poi.items()))
+      print(poi)
+
+      # go through poi and push elements into array
+#       skyline = poi.pop(0)
+#       prev_height = 0
+#       for x, height in poi:
+#         if height > skyline[-1][1]:
+#           skyline.append([x. height])
+
+
+
+
+
+# test cases
+tests = [
+  [
+    [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]],
+    [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]
+  ],
+#  [
+#    [[2,9,10],[9000000000,9000000005,15]],
+#    [[2,10],[9000000000,15],[9000000005,0]],
+#  ]
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.getSkyline(test[0]) == test[1])
