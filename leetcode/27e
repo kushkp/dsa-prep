@@ -1,0 +1,37 @@
+# Remove Element
+# https://leetcode.com/problems/remove-element/
+
+class Solution:
+    def removeElement(self, nums: 'List[int]', val: 'int') -> 'int':
+        if not nums:
+            return 0
+
+        pos_f = 0
+        pos_r = len(nums) - 1
+
+        target_f = None
+        target_r = None
+
+        while pos_f < pos_r:
+            # find next target
+            if target_f == None:
+                if nums[pos_f] == val:
+                    target_f = pos_f
+                else:
+                    pos_f += 1
+
+            # find next i to switch with
+            if target_r == None:
+                if nums[pos_r] != val:
+                    target_r = pos_r
+                else:
+                    pos_r -= 1
+
+            # swap if both nums found
+            if target_f != None and target_r != None:
+                nums[target_f], nums[target_r] = nums[target_r], nums[target_f]
+                target_f, target_r = None, None
+
+        return len(nums) - nums.count(val)
+
+# tested in online ide
