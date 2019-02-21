@@ -1,0 +1,68 @@
+# Minimum Window Substring
+# https://leetcode.com/problems/minimum-window-substring/
+
+
+class Solution:
+    def containsAllTargets(self, freq):
+      return all(v > 0 for k,v in freq.items())
+
+    def minWindow(self, s: 'str', t: 'str') -> 'str':
+      if len(s) < 1 or len(t) > len(s):
+        return ""
+
+      minSize = 999999
+      minString = ''
+      left, right = 0,0
+      # initialize frequency hash of target letters in window
+      freq = { char: 0 for char in t }
+
+      # Add first letter
+      if s[0] in freq:
+        freq[s[0]] += 1
+
+      # stop when the left is at end of s
+      while left < len(s) and right < len(s):
+        print(left, right, freq, minString)
+        if self.containsAllTargets(freq):
+
+          substring = s[left:right+1]
+          substring_len = len(substring)
+          if substring_len < minSize:
+            minString = substring
+            minSize = substring_len
+
+          if left < right:
+            # remove el from freq
+            if s[left] in freq:
+              freq[s[left]] -= 1
+            # increment left
+            left += 1
+
+        else:
+          # increment right
+          if right < len(s) - 1:
+            right += 1
+            # add el to freq
+            if s[right] in freq:
+              freq[s[right]] += 1
+          else:
+            break
+
+      return minString
+
+
+
+# test cases
+tests = [
+  ("ADOBECODEBANC", "ABC", "BANC"),
+  ("AABABBA", "ABC", ""),
+  ("BA", "BA", "BA"),
+  # ("BA", "A", "A"), #infinite loop
+  # ("A", "A", "A"), #infinite loop
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.minWindow(test[0], test[1]) == test[2])
