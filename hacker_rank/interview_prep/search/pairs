@@ -1,0 +1,28 @@
+def pairs(k, arr):
+  # create frequency map
+  num_freq = {}
+  for num in arr:
+    if num in num_freq:
+      num_freq[num] += 1
+    else:
+      num_freq[num] = 1
+
+  pairs = 0
+
+  for num in arr:
+    # update freq map
+    num_freq[num] -= 1
+
+    target = num - k
+    if target in num_freq and num_freq[target] > 0:
+      pairs += 1
+
+    # update freq map
+    num_freq[num] += 1
+
+  return pairs
+
+# test cases
+
+print(pairs(2, [1,5,3,4,2]) == 3)
+print(pairs(1, [1,2,3,4]) == 3)
