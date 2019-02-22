@@ -1,0 +1,22 @@
+def countingValleys(n, s):
+  altitude = 0
+  num_valleys = 0
+
+  for char in s:
+    prev_altitude = altitude
+
+    if char == 'U':
+      altitude += 1
+    else:
+      altitude -= 1
+
+    if prev_altitude == 0 and altitude < 0:
+      num_valleys += 1
+
+  return num_valleys
+
+
+
+# test cases
+print(countingValleys(8, 'UDDDUDUU') == 1)
+print(countingValleys(8, 'DDUUUUDD') == 1)
