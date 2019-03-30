@@ -1,0 +1,67 @@
+# This problem was asked by Uber.
+
+# Given an array of integers, return a new array such that each element at index i of the new array is the product of all the numbers in the original array except the one at i.
+
+# For example, if our input was [1, 2, 3, 4, 5], the expected output would be [120, 60, 40, 30, 24].
+# If our input was [3, 2, 1], the expected output would be [2, 3, 6].
+
+
+def nonproduct(arr):
+  prod = 1
+  for el in arr:
+    prod *= el
+
+  return [prod / el for el in arr]
+
+
+# print(nonproduct([1, 2, 3, 4, 5]) == [120, 60, 40, 30, 24])
+# print(nonproduct([3, 2, 1]) == [2, 3, 6])
+
+# Follow-up: what if you can't use division?
+
+
+# [1, 2, 3, 4, 5] => [120, 60, 40, 30, 24]
+# [1, 2, 6, 24, 120] L
+# [120, 120, 60, 20, 5] R
+# [120, 60, 40, 30, 24]
+
+# [3, 2, 1] => [2, 3, 6]
+# [3, 6, 6] L
+# [6, 2, 1] R
+# [2, 3, 6]
+
+def nonproduct2(arr):
+  prod = 1
+
+  left_prods = []
+  for el in arr:
+    prod *= el
+    left_prods.append(prod)
+
+  print(left_prods)
+
+  prod = 1
+  right_prods = []
+  for i in range(len(arr) - 1, -1, -1):
+    el = arr[i]
+    prod *= el
+    right_prods.append(prod)
+
+  right_prods.reverse()
+  print(right_prods)
+
+  res = []
+  for i in range(len(arr)):
+    left_pos = i - 1
+    right_pos = i + 1
+
+    left_val = left_prods[left_pos] if left_pos >= 0 else 1
+    right_val = right_prods[right_pos] if right_pos < len(arr) else 1
+
+    res.append(left_val * right_val)
+
+  print(res)
+  return res
+
+print(nonproduct2([1, 2, 3, 4, 5]) == [120, 60, 40, 30, 24])
+print(nonproduct2([3, 2, 1]) == [2, 3, 6])
