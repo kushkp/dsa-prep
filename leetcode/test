@@ -1,0 +1,32 @@
+# https://leetcode.com/discuss/interview-question/232999/Google-Phone-Screen
+
+# Q.1: Consider any integer ending in 0 to be “magic”.  Write a function which accepts an integer, sums the squares of the digits of the integer,
+# and determines if the sum ends in zero. If it ends in zero print “Magic”. Otherwise, try again with the sum.
+
+
+
+
+
+def isMagic(num, seen = set()):
+  if num in seen:
+    print('No Magix')
+    return
+  else:
+    seen.add(num)
+
+  num_str = str(num)
+
+  sum = 0
+  for digit in num_str:
+    digit = int(digit)
+    sum += digit * digit
+
+  if sum % 10 == 0:
+    print('Magic')
+    return
+  else:
+    isMagic(sum, seen)
+
+#test cases
+isMagic(4)
+isMagic(10)

@@ -1,0 +1,64 @@
+# M - Find First and Last Position of Element in Sorted Array
+
+class Solution:
+    def binarySearch(self, nums: 'List[int]', target: 'int') -> 'int':
+        # print(nums, target)
+
+        if not nums:
+          return -1
+
+        mid = len(nums) // 2
+        mid_val = nums[mid]
+
+        if target == mid_val:
+          return mid
+        elif target < mid_val:
+          return self.binarySearch(nums[:mid], target)
+        else:
+          i = self.binarySearch(nums[mid+1:], target)
+          return -1 if i is -1 else mid + 1 + i
+
+    def searchRange(self, nums: 'List[int]', target: 'int') -> 'List[int]':
+        index = self.binarySearch(nums, target)
+
+        # print(index)
+        if index == -1:
+          return [-1, -1]
+
+        # if target found:
+        # we need to check left side for start, and right side for end
+
+        start = index
+        for i in range(index - 1, -1, -1):
+          if nums[i] == target:
+            start = i
+          else:
+            break
+
+        end = index
+        for i in range(index + 1, len(nums)):
+          if nums[i] == target:
+            end = i
+          else:
+            break
+
+        return [start, end]
+
+
+# test cases
+tests = [
+  ([5,7,7,8,8,10], 8, [3,4]),
+  ([5,7,7,8,8,10], 5, [0,0]),
+  ([5,7,7,8,8,10], 7, [1,2]),
+  ([5,7,7,8,8,10], 10, [5,5]),
+  ([5,7,7,8,8,10], 3, [-1,-1]),
+  ([5,7,7,8,8,10], 6, [-1,-1]),
+  ([5,7,7,8,8,10], 9, [-1,-1]),
+  ([5,7,7,8,8,10], 12, [-1,-1]),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.searchRange(test[0], test[1]) == test[2])

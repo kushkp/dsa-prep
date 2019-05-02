@@ -84,7 +84,8 @@ all_questions = set([
 ])
 
 complete = set([
-
+  'Valid Parentheses - https://leetcode.com/problems/valid-parentheses/',
+  'Lowest Common Ancestor of BST - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/',
 ])
 
 incomplete_questions = all_questions.difference(complete)

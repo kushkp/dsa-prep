@@ -1,0 +1,28 @@
+# Q.2: Write a function that accepts two integers and stores them as a range.
+# Write another function that accepts one integer, and determines if the integer is contained within a stored range.
+
+class myRange:
+  def __init__(self):
+    self.min = None
+    self.max = None
+
+  def store(self, min, max):
+    self.min = min
+    self.max = max
+
+  def isWithinRange(self, num):
+    if self.min is None or self.max is None:
+      return 'Must store range first'
+
+    return num >= self.min and num <= self.max
+
+
+# test cases
+
+range1 = myRange()
+range1.store(1,5)
+print(range1.isWithinRange(3))
+print(range1.isWithinRange(7))
+
+range2 = myRange()
+print(range2.isWithinRange(3))

@@ -1,0 +1,28 @@
+# Lowest Common Ancestor of BST
+# https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree
+
+
+def findRoute(self, node: 'TreeNode', target: 'TreeNode', route):
+    currentRoute = route + [node]
+
+    if target.val == node.val:
+        return currentRoute
+    elif target.val > node.val:
+        return self.findRoute(node.right, target, currentRoute)
+    elif target.val < node.val:
+        return self.findRoute(node.left, target, currentRoute)
+
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+
+    proute = self.findRoute(root, p, [])
+    qroute = self.findRoute(root, q, [])
+
+    lowestAncestor = root
+
+    for i in range(min(len(proute), len(qroute))):
+        if proute[i].val == qroute[i].val:
+            lowestAncestor = proute[i]
+        else:
+            break
+
+    return lowestAncestor

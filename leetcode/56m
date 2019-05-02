@@ -1,0 +1,25 @@
+# Merge Intevals
+# https://leetcode.com/problems/merge-intervals/
+
+
+def merge(intervals):
+    arr = intervals.copy()
+    arr.sort()
+
+    i = 0
+    while i < (len(arr) - 1):
+      curr = arr[i]
+      next = arr[i + 1]
+
+      if curr[1] >= next[0]:
+        arr[i][1] = max(next[1], curr[1])
+        arr.pop(i + 1)
+      else:
+        i += 1
+
+    return arr
+
+# test cases
+print(merge([[1,3],[2,6],[8,10],[15,18]]) == [[1,6],[8,10],[15,18]])
+print(merge([[1,4],[4,5]]) == [[1,5]])
+print(merge([[1,4],[2,3]]) == [[1,4]])

@@ -3,6 +3,9 @@
 
 class Solution:
     def characterReplacement(self, s: 'str', k: 'int') -> 'int':
+      if len(s) <= 1:
+          return len(s)
+
       starting_points = [0]
       max_length = 1
       end = len(s)
@@ -36,7 +39,38 @@ class Solution:
             else:
               break
 
+
+      # go in reverse
+      starting_points = [end-1]
+
+      while starting_points:
+        start = starting_points.pop(0)
+        target_letter = s[start]
+        remaining_changes = k
+        length = 1
+
+        for i in range(start - 1, -1, -1):
+          letter = s[i]
+          if letter == target_letter:
+            length += 1
+            max_length = max(max_length, length)
+          else:
+            # add letter as next starting point
+            starting_points.append(i)
+
+            # change letter for this round
+            if remaining_changes > 0:
+              remaining_changes -= 1
+              length += 1
+              max_length = max(max_length, length)
+            else:
+              break
+
       return max_length
+
+
+
+
 
 # test cases
 tests = [
@@ -45,6 +79,10 @@ tests = [
   ("AABABBA", 2, 5),
   ("AABABBA", 3, 7),
   ("AABBACCCBBBBBA", 4, 11),
+  ("A", 4, 1),
+  ("", 4, 0),
+  ("ABBB", 2, 4),
+  ("BBBA", 2, 4),
 ]
 
 

@@ -1,0 +1,26 @@
+# Valid Parentheses
+# https://leetcode.com/problems/valid-parentheses/
+
+def isValid(s: str) -> bool:
+    stack = []
+    open = set(['{', '[', '('])
+    close = { '}': '{', ']': '[', ')':'(' }
+
+    for char in s:
+      if char in open:
+        stack.append(char)
+      else:
+        matching_open = close[char]
+        if matching_open == stack[-1]:
+          stack.pop()
+        else:
+          return False
+
+    return len(stack) == 0
+
+
+print(isValid('()') == True)
+print(isValid('()[]{}') == True)
+print(isValid('(]') == False)
+print(isValid('([)]') == False)
+print(isValid('{[()]}') == True)

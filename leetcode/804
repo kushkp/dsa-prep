@@ -1,0 +1,30 @@
+# E - Unique Morse Code Words
+
+class Solution:
+    def uniqueMorseRepresentations(self, words: 'List[str]') -> 'int':
+        alphabet = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+
+        morse_words = set()
+
+        for word in words:
+            morse = ""
+            for char in word:
+                i = ord(char) - 97
+                morse += alphabet[i]
+
+            morse_words.add(morse)
+
+        print(morse_words)
+        return len(morse_words)
+
+
+# test cases
+tests = [
+  (["gin", "zen", "gig", "msg"], 2),
+]
+
+
+# main runner
+sol = Solution()
+for test in tests:
+  print(sol.uniqueMorseRepresentations(test[0]) == test[1])
