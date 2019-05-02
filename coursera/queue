@@ -1,0 +1,39 @@
+# Linked list implementation
+def queue:
+
+  def Node:
+    def __init__(self, item = None, next = None):
+      self.item = item
+      self.next = next
+
+  def __init__(self, first = None):
+    self.first = first
+
+  def enqueue(item):
+    last = first
+    while last.next != None:
+      last = last.next
+    new_last = Node(item)
+    last.next = new_last
+
+  def dequeue():
+    old_first = first
+    first = first.next
+    return old_first.item
+
+  def is_empty():
+    return self.first == None
+
+# array implementation
+def queue:
+  def __init__(self)
+    self.data = []
+
+  def enqueue(item):
+    data.append(item)
+
+  def dequeue():
+
+
+  def is_empty():
+    return len(self.data) == 0

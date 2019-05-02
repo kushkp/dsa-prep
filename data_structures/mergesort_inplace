@@ -1,0 +1,27 @@
+def mergesort(arr):
+  return _mergesort(arr, 0, len(arr))
+
+# [3, 2, 1, 0]
+
+def _mergesort(arr, low, high):
+  range = high - low
+  if range <= 1:
+    return arr
+
+  mid = (range / 2) + low
+  left = _mergesort(arr, low, mid)   # low = beginning index
+  right = _mergesort(arr, mid, high)  # high = ending index
+
+  return merge(arr, left, right, low, high)
+
+
+def merge(arr, left, right, low, high):
+  
+
+
+
+# tests
+print(mergesort([3, 2, 1, 0]))
+print(mergesort([1, 2]))
+print(mergesort([1]))
+print(mergesort([]))

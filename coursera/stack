@@ -1,0 +1,39 @@
+# Linked list implementation
+def stack:
+
+  def Node:
+    def __init__(self, item = None, next = None):
+      self.item = item
+      self.next = next
+
+  def __init__(self, first = None):
+    self.first = first
+
+  def push(item):
+    old_first = self.first
+    new_first = Node(item)
+    new_first.next = old_first
+    self.first = new_first
+
+  def pop():
+    self.first = self.first.next
+    return self.first.item
+
+  def is_empty():
+    return self.first == None
+
+# array implementation
+def stack:
+  def __init__(self)
+    self.data = []
+
+  def push(item):
+    data.append(item)
+
+  def pop():
+    item = data[-1]
+    del(data[-1])
+    return item
+
+  def is_empty():
+    return len(self.data) == 0

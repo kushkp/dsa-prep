@@ -1,0 +1,71 @@
+# INCOMPLETE/INCORRECT
+
+# Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
+
+# For example, given the following Node class
+
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# The following test should pass:
+
+# returns string
+def serialize(node):
+  string = _serialize(node)
+  return string
+
+def _serialize(node):
+  if node.val is None:
+    return 'none'
+  else:
+    val = str(node.val)
+    left = ' ' +  _serialize(node.left) if node.left else ''
+    right = ' ' +  _serialize(node.right) if node.right else ''
+    return val + left + right
+
+# returns node
+def deserialize(string):
+  node_vals = string.split()
+  val = node_vals.pop(0)
+  return _deserialize(val, node_vals)
+
+
+def _deserialize(val, node_vals):
+  if val == 'none':
+    node = Node(None)
+  else:
+    node = Node(val)
+    if len(node_vals) > 1:
+      left_val = node_vals.pop(0)
+      left_val = None if node_vals[0] == 'none' else int(left_val)
+      right_val = node_vals.pop(0)
+      right_val = None if node_vals[0] == 'none' else int(right_val)
+      node.left = _deserialize(int(left_val), node_vals)
+      node.right = _deserialize(int(right_val), node_vals)
+
+  return node
+
+#     5
+#   1   7
+# n  2 6  8
+
+leaf1 = Node(None)
+leaf2 = Node(2)
+leaf3 = Node(6)
+leaf4 = Node(8)
+mid1 = Node(1, leaf1, leaf2)
+mid2 = Node(7, leaf3, leaf4)
+root = Node(5, mid1, mid2)
+
+serialized = serialize(root)
+print(serialized)
+deserialized = deserialize(serialized)
+assert deserialized.left.left.val == None
+assert deserialized.right.left.val == 6
+
+
+node = Node('root', Node('left', Node('left.left')), Node('right'))
+assert deserialize(serialize(node)).left.left.val == 'left.left'

@@ -1,0 +1,88 @@
+class Heap:
+
+  def __init__(self, items = None):
+    self.heap = [None]
+    self.size = 0
+
+    if items is not None:
+      self.size = len(items)
+      self.heap += items
+      for i in range(self.size // 2, 0, -1):
+        self._sink(i)
+
+  def is_empty(self):
+    return self.size == 0
+
+  def get_max(self):
+    if self.is_empty():
+      raise Exception('No values present')
+    else:
+      return self.heap[1]
+
+  def insert(self, val):
+    self.heap.append(val)
+    self._swim(self.size)
+    self.size += 1
+
+  def delMax(self):
+    self._exchange(1, -1)
+    max = self.heap.pop(-1)
+    self.size -= 1
+    self._sink(1)
+    return max
+
+  def _sink(self, i):
+    heap = self.heap
+
+    while (2*i < self.size):
+      left_pos = 2 * i
+      right_pos = left_pos + 1
+      left_child = heap[left_pos]
+      right_child = heap[right_pos]
+
+      if heap[i] >= left_child and heap[i] >= right_child:
+        break
+      elif heap[i] < left_child and heap[i] >= right_child:
+        self._exchange(i, left_pos)
+        i = left_child
+      elif heap[i] >= left_child and heap[i] < right_child:
+        self._exchange(i, right_pos)
+        i = right_child
+      elif heap[i] < left_child and heap[i] < right_child:
+        swap = left_pos if left_child > right_child else right_pos
+        self._exchange(i, swap)
+        i = swap
+
+  def _swim(self, i):
+    heap = self.Heap
+
+    while i >= 1:
+      parent = i // 2
+
+      if heap[i] <= parent:
+        break
+
+      self._exchange(i, parent)
+      i = parent
+
+  def _exchange(self, i, j):
+    self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+  def sort(self):
+    while self.size > 1:
+      self._exchange(1, self.size)
+      self.size -= 1
+      self._sink(1)
+
+    return self.heap[1:]
+
+
+
+# Test cases
+
+arr = [55, 2, 4, 6, 8, 93, 36, 5]
+sorted = [2, 4, 5, 6, 8, 36, 55, 93]
+
+heap = Heap(arr)
+res = heap.sort()
+print(sorted == res)

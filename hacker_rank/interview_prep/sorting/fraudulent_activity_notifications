@@ -1,0 +1,40 @@
+def activityNotifications(expenditure, d):
+# 0 1 2 3 4
+#     0 1 2
+# d = 2
+
+  notifications = 0
+
+  # populate count_array
+  count_array = [0] * 200
+  for day in range(d):
+    expense = expenditure[day]
+    count_array[expense] += 1
+
+  medians = [0] * d
+  for day in range(len(expenditure) - d):
+    current_day = day + d
+    current_spend = expenditure[current_day]
+
+  for day in range(len(expenditure) - d):
+    current_day = day + d
+    current_spend = expenditure[current_day]
+
+    previous_spending = expenditure[(current_day - d):current_day]
+    prev_exp = sorted(previous_spending)
+    if d % 2 != 0:
+      median = prev_exp[d // 2]
+    else:
+      mid_low = d // 2
+      median = (prev_exp[mid_low] + prev_exp[mid_low + 1]) / 2
+
+    print(current_spend, median)
+    if current_spend >= median * 2:
+      notifications += 1
+
+  return notifications
+
+# test cases
+print(activityNotifications([10,20,30,40,50], 3) == 1)
+print(activityNotifications([2,3,4,2,3,6,8,4,5], 5) == 2)
+print(activityNotifications([1,2,3,4,4], 4) == 0)

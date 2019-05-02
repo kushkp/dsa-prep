@@ -1,0 +1,73 @@
+class BinaryTree:
+  class Node:
+    def __init__(self, data = null):
+      self.data = data
+      self.left = None
+      self.right = None
+
+  def __init__(self, root = None):
+    self.root = root
+
+  def insert(self, val):
+    if self.root == None:
+      self.root = Node(val)
+    else:
+      self._insert(val, self.root)
+
+  def _insert(self, val, node)
+      if val < node.data:
+        if node.left:
+          self._insert(val, node.left)
+        else:
+          node.left = Node(val)
+      else: #if taking right subtree
+        if node.right:
+          self._insert(val, node.right)
+        else:
+          node.right = Node(val)
+
+  def find(self, val):
+    if self.root == None:
+      return None
+    else:
+      return self._find(val, self.root)
+
+  def _find(self, val, node):
+    if node.data == None:
+      return None
+    elif val == node.data:
+      return node
+    elif val < node.data and node.left is not None:
+      return self._find(val, node.left)
+    elif val > node.data and node.right is not None:
+      return self._find(val, node.right)
+
+    return None
+
+  def traverseInOrder(self):
+    self._inOrder(self.root)
+
+  def _inOrder(self, node):
+    if node.data is None:
+      return
+
+    traverseInOrder(node.left)
+    print(node.data)
+    traverseInOrder(node.right)
+
+def is_balanced_tree(tree):
+  def check_balanced(tree):
+    if tree is None:
+      return (True, -1) #(balanced?, height)
+
+    left_res = check_balanced(tree.left)
+    if not left_res[0]:
+      return (False, 0) #(balanced?, height)
+
+    right_res = check_balanced(tree.right)
+    if not right_res[0]:
+      return (False, 0) #(balanced?, height)
+
+    is_balanced = abs(left_res[1] - right_res[1]) <= 1
+    height = max(left_res[1], right_res[1]) + 1
+    return (is_balanced, height) #(balanced?, height)
