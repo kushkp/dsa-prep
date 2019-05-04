@@ -1,0 +1,35 @@
+# Count Num of Inversions
+# https://www.hackerrank.com/challenges/ctci-merge-sort/problem
+
+def main(arr):
+  sorted, count = merge_sort(arr, 0)
+  print(sorted, count)
+  return count
+
+def merge_sort(arr, count):
+  if len(arr) <= 1:
+    return arr, count
+
+  mid = len(arr) // 2
+  left, count = merge_sort(arr[:mid], count)
+  right, count = merge_sort(arr[mid:], count)
+
+  return merge(left, right, count)
+
+
+# recursive function
+def merge(left, right, count):
+  res = []
+  while len(left) > 0 and len(right) > 0:
+    if left[0] <= right[0]:
+      res.append(left.pop(0))
+    else:
+      res.append(right.pop(0))
+      count +=1
+
+  return res + left + right, count
+
+
+# test cases
+print(main([1,1,1,2,2]) == 0)
+print(main([2,1,3,1,2]) == 4)
